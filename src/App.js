@@ -7,6 +7,7 @@ import TodoList from './components/TodoList'
 import TodoForm from './components/TodoForm'
 import PostList from './components/PostList'
 import Pagination from './components/Pagination'
+import PostFiltersForm from './components/PostFiltersForm'
 import './App.scss'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   const [filters, setFilters] = useState({
     _page: 1,
     _limit: 10,
+    title_like: '',
   })
 
   useEffect(() => {
@@ -47,6 +49,14 @@ function App() {
     })
   }
 
+  function handleFiltersChange(newFilters) {
+    setFilters({
+      ...filters,
+      _page: 1,
+      title_like: newFilters.searchTerm,
+    })
+  }
+
   function handleTodoClick(todo) {
     const index = todoList.findIndex((x) => x.id === todo.id)
     if (index < 0) return 0
@@ -70,8 +80,11 @@ function App() {
   return (
     <div className='app'>
       <ColorBox />
+      <h2>Todo List</h2>
       <TodoForm onSubmit={handleTodoFormSubmit} />
       <TodoList todos={todoList} onTodoClick={handleTodoClick} />
+      <h2>Post List</h2>
+      <PostFiltersForm onSubmit={handleFiltersChange} />
       <PostList posts={postList} />
       <Pagination pagination={pagination} onPageChange={handlePageChange} />
     </div>
