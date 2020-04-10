@@ -8,6 +8,7 @@ import TodoForm from './components/TodoForm'
 import PostList from './components/PostList'
 import Pagination from './components/Pagination'
 import PostFiltersForm from './components/PostFiltersForm'
+import Clock from './components/Clock'
 import './App.scss'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
     _limit: 10,
     title_like: '',
   })
+  const [showClock, setShowClock] = useState(true)
 
   useEffect(() => {
     async function fetchPostList() {
@@ -87,6 +89,8 @@ function App() {
       <PostFiltersForm onSubmit={handleFiltersChange} />
       <PostList posts={postList} />
       <Pagination pagination={pagination} onPageChange={handlePageChange} />
+      <button onClick={() => setShowClock(!showClock)}>Toggle Clock</button>
+      {showClock && <Clock />}
     </div>
   )
 }
