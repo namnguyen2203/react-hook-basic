@@ -10,6 +10,7 @@ import Pagination from './components/Pagination'
 import PostFiltersForm from './components/PostFiltersForm'
 import Clock from './components/Clock'
 import './App.scss'
+import MagicBox from './components/MagicBox'
 
 function App() {
   const [todoList, setTodoList] = useState([])
@@ -82,6 +83,7 @@ function App() {
   return (
     <div className='app'>
       <ColorBox />
+      <MagicBox />
       <h2>Todo List</h2>
       <TodoForm onSubmit={handleTodoFormSubmit} />
       <TodoList todos={todoList} onTodoClick={handleTodoClick} />

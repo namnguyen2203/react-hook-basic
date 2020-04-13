@@ -1,0 +1,12 @@
+.magic-box {
+  $box-size: 200px;
+
+  width: $box-size;
+  height: $box-size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: 300ms ease-in-out;
+  cursor: pointer;
+}
