@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import queryString from 'query-string'
+import axios from 'axios'
 
 import ColorBox from './components/ColorBox'
 import TodoList from './components/TodoList'
@@ -28,17 +29,29 @@ function App() {
   const [showClock, setShowClock] = useState(true)
 
   useEffect(() => {
+    async function getTodos() {
+      try {
+        const res = await axios.get('http://localhost:5000/todos')
+        setTodoList(res.data)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    getTodos()
+  }, [])
+
+  useEffect(() => {
     async function fetchPostList() {
       try {
-        const paramsString = queryString.stringify(filters)
-        const requestUrl = `http://js-post-api.herokuapp.com/api/posts?${paramsString}`
-        const response = await fetch(requestUrl)
-        const responseJSON = await response.json()
-        const { data, pagination } = responseJSON
+        const params = queryString.stringify(filters)
+        const url = `http://js-post-api.herokuapp.com/api/posts?${params}`
+        const res = await fetch(url)
+        const json = await res.json()
+        const { data, pagination } = json
         setPostList(data)
         setPagination(pagination)
       } catch (err) {
-        console.log(err.message)
+        console.error(err.message)
       }
     }
 
@@ -62,7 +75,10 @@ function App() {
 
   function handleTodoClick(todo) {
     const index = todoList.findIndex((x) => x.id === todo.id)
-    if (index < 0) return 0
+
+    axios
+      .delete(`http://localhost:5000/todos/${todo.id}`)
+      .catch((err) => console.error(err))
 
     const newTodoList = [...todoList]
     newTodoList.splice(index, 1)
@@ -75,6 +91,11 @@ function App() {
       id: uuidv4(),
       ...formValues,
     }
+    axios
+      .post('http://localhost:5000/todos', {
+        ...newTodo,
+      })
+      .catch((err) => console.error(err))
 
     newTodoList.push(newTodo)
     setTodoList(newTodoList)

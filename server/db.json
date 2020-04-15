@@ -1,0 +1,20 @@
+{
+  "todos": [
+    {
+      "id": "a2cb891c-a544-4eba-bc49-bb089014b961",
+      "title": "Rửa chén"
+    },
+    {
+      "id": "5929cc64-5f38-4363-95ac-61499db31db7",
+      "title": "Giặt đồ"
+    },
+    {
+      "id": "cfbbfb19-0084-4158-8b6e-f796efdf7891",
+      "title": "Lau nhà"
+    },
+    {
+      "id": "d09135be-763f-4b22-b9b5-a0b6cdee63c4",
+      "title": "Nấu cơm"
+    }
+  ]
+}
